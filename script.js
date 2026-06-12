@@ -1,12 +1,25 @@
-const dateOptions = document.querySelectorAll(".date-option");
+const calendarDays = document.querySelector("#calendarDays");
+const calendarMonth = document.querySelector("#calendarMonth");
+const timeOptions = document.querySelectorAll(".time-option");
 const dateResult = document.querySelector("#dateResult");
-const sparkButton = document.querySelector("#sparkButton");
-const secretButton = document.querySelector("#secretButton");
+const wishInput = document.querySelector("#wishInput");
+const replyLink = document.querySelector("#replyLink");
+const noButton = document.querySelector("#noButton");
+const answerZone = document.querySelector("#answerZone");
+const noMessage = document.querySelector("#noMessage");
 const toast = document.querySelector("#toast");
 
+const siteUrl = "https://boost-me-pls.ru";
+let selectedDay = new Date();
+let selectedTime = "18:00";
+let selectedDate = "";
 let toastTimer;
 
 function showToast(message) {
+  if (!toast) {
+    return;
+  }
+
   toast.textContent = message;
   toast.classList.add("show");
 
@@ -16,48 +29,151 @@ function showToast(message) {
   }, 2600);
 }
 
-function createSpark(x, y) {
-  const spark = document.createElement("span");
-  const angle = Math.random() * Math.PI * 2;
-  const distance = 70 + Math.random() * 90;
-
-  spark.className = "spark";
-  spark.textContent = Math.random() > 0.5 ? "♡" : "✦";
-  spark.style.left = `${x}px`;
-  spark.style.top = `${y}px`;
-  spark.style.setProperty("--spark-x", `${Math.cos(angle) * distance}px`);
-  spark.style.setProperty("--spark-y", `${Math.sin(angle) * distance}px`);
-  spark.style.fontSize = `${18 + Math.random() * 20}px`;
-
-  document.body.append(spark);
-  spark.addEventListener("animationend", () => spark.remove(), { once: true });
+function showNoMessage(message) {
+  noMessage.textContent = message;
+  noMessage.classList.add("show");
 }
 
-function burstSparks(origin) {
-  const rect = origin.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+function getReplyMessage() {
+  const message = [
+    "Да, я согласна на свидание 💜",
+    `Выбран вариант: ${selectedDate}`,
+  ];
 
-  for (let index = 0; index < 24; index += 1) {
-    window.setTimeout(() => createSpark(centerX, centerY), index * 18);
+  if (wishInput.value.trim()) {
+    message.push(`Пожелание: ${wishInput.value.trim()}`);
   }
+
+  message.push("Викуля подтверждает.", "Жду подробности и уже улыбаюсь.");
+
+  return message.join("\n");
 }
 
-dateOptions.forEach((option) => {
+function formatDate(date) {
+  return new Intl.DateTimeFormat("ru-RU", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(date);
+}
+
+function updateSelectedDate() {
+  selectedDate = `${formatDate(selectedDay)}, ${selectedTime}`;
+  dateResult.textContent = `Выбран вариант: ${selectedDate}`;
+  updateReplyLink();
+}
+
+function updateReplyLink() {
+  const params = new URLSearchParams({
+    url: siteUrl,
+    text: getReplyMessage(),
+  });
+
+  replyLink.href = `https://t.me/share/url?${params.toString()}`;
+}
+
+function renderCalendar() {
+  const dates = Array.from({ length: 21 }, (_, index) => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() + index);
+    return date;
+  });
+  const firstDay = dates[0].getDay() || 7;
+  const monthLabel = new Intl.DateTimeFormat("ru-RU", {
+    month: "long",
+    year: "numeric",
+  }).format(dates[0]);
+
+  calendarMonth.textContent = monthLabel;
+  calendarDays.textContent = "";
+
+  for (let index = 1; index < firstDay; index += 1) {
+    const offset = document.createElement("span");
+    offset.className = "calendar-day is-offset";
+    calendarDays.append(offset);
+  }
+
+  dates.forEach((date, index) => {
+    const button = document.createElement("button");
+    const weekday = new Intl.DateTimeFormat("ru-RU", { weekday: "short" }).format(date);
+    const day = new Intl.DateTimeFormat("ru-RU", { day: "numeric" }).format(date);
+
+    button.className = "calendar-day";
+    button.type = "button";
+    button.innerHTML = `<span>${day}</span><small>${index === 0 ? "сегодня" : weekday}</small>`;
+    button.dataset.iso = date.toISOString();
+
+    if (date.toDateString() === selectedDay.toDateString()) {
+      button.classList.add("active");
+    }
+
+    button.addEventListener("click", () => {
+      selectedDay = date;
+      document.querySelectorAll(".calendar-day").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      updateSelectedDate();
+      showToast("Викуля выбрала день. Хороший выбор.");
+    });
+
+    calendarDays.append(button);
+  });
+}
+
+timeOptions.forEach((option) => {
   option.addEventListener("click", () => {
-    dateOptions.forEach((item) => item.classList.remove("active"));
+    timeOptions.forEach((item) => item.classList.remove("active"));
     option.classList.add("active");
-    dateResult.textContent = `Выбран вариант: ${option.dataset.date}`;
-    showToast("Отличный выбор. Я уже радуюсь.");
+    selectedTime = option.dataset.time;
+    updateSelectedDate();
+    showToast("Время записал. Уже радуюсь.");
   });
 });
 
-sparkButton.addEventListener("click", () => {
-  burstSparks(sparkButton);
-  showToast("Магия добавлена. Уровень милоты повышен.");
+replyLink.addEventListener("click", () => {
+  updateReplyLink();
+  showToast("Telegram откроется с готовым текстом.");
 });
 
-secretButton.addEventListener("click", () => {
-  burstSparks(secretButton);
-  showToast("Значит, сайт работает правильно ♡");
+wishInput.addEventListener("input", updateReplyLink);
+
+function getRunawayPosition(pointerX, pointerY) {
+  const zoneRect = answerZone.getBoundingClientRect();
+  const buttonRect = noButton.getBoundingClientRect();
+  const maxLeft = Math.max(zoneRect.width - buttonRect.width, 0);
+  const maxTop = Math.max(zoneRect.height - buttonRect.height, 0);
+  const pointerInsideZoneX = pointerX - zoneRect.left;
+  const pointerInsideZoneY = pointerY - zoneRect.top;
+  const directionX = pointerInsideZoneX < zoneRect.width / 2 ? 1 : -1;
+  const directionY = pointerInsideZoneY < zoneRect.height / 2 ? 1 : -1;
+  const currentLeft = buttonRect.left - zoneRect.left;
+  const currentTop = buttonRect.top - zoneRect.top;
+  const left = currentLeft + directionX * (54 + Math.random() * 34);
+  const top = currentTop + directionY * (20 + Math.random() * 26);
+
+  return {
+    left: Math.min(Math.max(left, 0), maxLeft),
+    top: Math.min(Math.max(top, 0), maxTop),
+  };
+}
+
+function moveNoButton(event) {
+  const pointerX = event?.clientX ?? window.innerWidth / 2;
+  const pointerY = event?.clientY ?? window.innerHeight / 2;
+  const { left, top } = getRunawayPosition(pointerX, pointerY);
+
+  noButton.classList.add("is-running");
+  noButton.style.left = `${left}px`;
+  noButton.style.top = `${top}px`;
+}
+
+noButton.addEventListener("pointerenter", moveNoButton);
+noButton.addEventListener("focus", moveNoButton);
+noButton.addEventListener("touchstart", moveNoButton, { passive: true });
+noButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  showNoMessage("Отказ временно недоступен. Сердце предлагает попробовать «Да» 💜");
 });
+
+renderCalendar();
+updateSelectedDate();
