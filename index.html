@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Романтическое приглашение на свидание от boost-me-pls.ru"
+    />
+    <meta name="theme-color" content="#f7c8d9" />
+    <title>Boost Me Pls | Приглашение на свидание</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+
+    <header class="hero">
+      <nav class="nav" aria-label="Главная навигация">
+        <a class="brand" href="#top" aria-label="Boost Me Pls">
+          <span class="brand-mark">♡</span>
+          boost-me-pls.ru
+        </a>
+        <a class="nav-link" href="#invite">Открыть приглашение</a>
+      </nav>
+
+      <section class="hero-content" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">секретная страница для самой особенной</p>
+          <h1>Кажется, этому вечеру нужен главный герой. И это ты.</h1>
+          <p class="hero-text">
+            Я собрал здесь маленькое приглашение: без лишнего шума, зато с
+            хорошим настроением, уютом и планом на свидание, где всё будет
+            крутиться вокруг твоей улыбки.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#invite">Узнать план</a>
+            <button class="button ghost" type="button" id="sparkButton">
+              Добавить магии
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Романтическая открытка">
+          <div class="moon"></div>
+          <div class="card-note">
+            <span>для тебя</span>
+            <strong>date.exe запущен</strong>
+            <p>ожидается подтверждение самой красивой участницы</p>
+          </div>
+          <div class="floating-heart heart-one">♥</div>
+          <div class="floating-heart heart-two">♥</div>
+          <div class="floating-heart heart-three">♥</div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section intro">
+        <div class="section-heading">
+          <p class="eyebrow">что я предлагаю</p>
+          <h2>Свидание, где можно просто быть собой</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon">01</span>
+            <h3>Нежный старт</h3>
+            <p>
+              Прогулка, кофе или чай, неспешный разговор и маршрут, который
+              можно менять по настроению.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">02</span>
+            <h3>Маленький сюрприз</h3>
+            <p>
+              Что-то милое и не слишком громкое. Подсказка: оно точно будет
+              сделано с вниманием.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">03</span>
+            <h3>Финал вечера</h3>
+            <p>
+              Красивое место, тёплый свет и момент, который захочется
+              запомнить без фильтров.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section invite" id="invite">
+        <div class="invite-card">
+          <div>
+            <p class="eyebrow">официальное приглашение</p>
+            <h2>Пойдёшь со мной на свидание?</h2>
+            <p>
+              Обещаю быть внимательным, не спорить с твоим выбором десерта и
+              сделать так, чтобы вечер получился лёгким, тёплым и немного
+              волшебным.
+            </p>
+          </div>
+
+          <div class="date-picker" aria-label="Варианты свидания">
+            <button class="date-option active" type="button" data-date="Пятница, 19:30">
+              <span>Пятница</span>
+              <strong>19:30</strong>
+            </button>
+            <button class="date-option" type="button" data-date="Суббота, 18:00">
+              <span>Суббота</span>
+              <strong>18:00</strong>
+            </button>
+            <button class="date-option" type="button" data-date="Воскресенье, когда проснёмся">
+              <span>Воскресенье</span>
+              <strong>lazy date</strong>
+            </button>
+          </div>
+
+          <div class="reply-box">
+            <p id="dateResult">Выбран вариант: Пятница, 19:30</p>
+            <a
+              class="button primary wide"
+              id="replyLink"
+              href="https://t.me/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Написать «да» в Telegram
+            </a>
+            <small>
+              Ссылку на Telegram можно заменить в `index.html` на свой ник.
+            </small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section checklist">
+        <div class="section-heading">
+          <p class="eyebrow">почему это хорошая идея</p>
+          <h2>Потому что вечер уже почти идеален</h2>
+        </div>
+        <ul class="promise-list">
+          <li>Плейлист будет собран под настроение, а не «что попало».</li>
+          <li>Темп вечера выбираешь ты: активно, спокойно или совсем уютно.</li>
+          <li>Фотографии будут только если захочешь, но улыбки я запомню точно.</li>
+          <li>Если план не зайдёт, у нас будет запасной. И запасной к запасному.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Сделано с мыслью о тебе · boost-me-pls.ru</p>
+      <button class="footer-button" type="button" id="secretButton">
+        нажми, если уже улыбаешься
+      </button>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      Значит, сайт работает правильно ♡
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
