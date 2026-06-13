@@ -36,15 +36,16 @@ function showNoMessage(message) {
 
 function getReplyMessage() {
   const message = [
-    "Да, я согласна на свидание 💜",
-    `Выбран вариант: ${selectedDate}`,
+    "Миссия принята 💜",
+    "Это настоящая Вика, не клон Йору. Наверное.",
+    `Дата и время: ${selectedDate}`,
   ];
 
   if (wishInput.value.trim()) {
-    message.push(`Пожелание: ${wishInput.value.trim()}`);
+    message.push(`Loadout: ${wishInput.value.trim()}`);
   }
 
-  message.push("Викуля подтверждает.", "Жду подробности и уже улыбаюсь.");
+  message.push("Вика в пати. Жду подробности.");
 
   return message.join("\n");
 }
@@ -113,7 +114,7 @@ function renderCalendar() {
       document.querySelectorAll(".calendar-day").forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
       updateSelectedDate();
-      showToast("Викуля выбрала день. Хороший выбор.");
+      showToast("Вика выбрала день. Хороший выбор.");
     });
 
     calendarDays.append(button);
@@ -172,7 +173,7 @@ noButton.addEventListener("focus", moveNoButton);
 noButton.addEventListener("touchstart", moveNoButton, { passive: true });
 noButton.addEventListener("click", (event) => {
   event.preventDefault();
-  showNoMessage("Отказ временно недоступен. Сердце предлагает попробовать «Да» 💜");
+  showNoMessage("Подозрительно. Это точно Вика нажала, а не клон Йору?");
 });
 
 renderCalendar();

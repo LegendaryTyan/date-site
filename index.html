@@ -8,7 +8,7 @@
       content="Романтическое приглашение на свидание от boost-me-pls.ru"
     />
     <meta name="theme-color" content="#d9ccff" />
-    <title>Boost Me Pls | Приглашение на свидание</title>
+    <title>Boost Me Pls | Date Mission</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%238b5cf6'/%3E%3Cpath d='M32 49s-18-10.5-18-24a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 13.5-18 24-18 24Z' fill='white'/%3E%3C/svg%3E"
@@ -27,19 +27,44 @@
 
     <main class="invite-page">
       <section class="invite-card" aria-labelledby="inviteTitle">
-        <div class="logo-mark" aria-label="Логотип Boost Me Pls">
-          <span>♡</span>
+        <div class="agent-card" aria-label="Карточка миссии">
+          <span class="agent-rank">DUO QUEUE</span>
+          <span class="agent-icon">Y?</span>
+          <span class="agent-status">clone detected</span>
         </div>
 
-        <h1 id="inviteTitle">Вика, пойдёшь со мной на свидание?</h1>
+        <h1 id="inviteTitle">Вика, готова зайти в пати на свидание?</h1>
         <p class="lead">
-          Без сложного плана: просто уютный день, прогулка, что-нибудь
-          вкусное и я, который очень хочет увидеть твою улыбку.
+          Это не ranked, так что без стресса: уютный день, прогулка,
+          что-нибудь вкусное и я, который обещает не пикать токсичность.
         </p>
+
+        <div class="mission-panel" aria-label="Детали миссии">
+          <div>
+            <span>режим</span>
+            <strong>date spike rush</strong>
+          </div>
+          <div>
+            <span>цель</span>
+            <strong>улыбки</strong>
+          </div>
+          <div>
+            <span>тиммейт</span>
+            <strong>LegendaryTyan</strong>
+          </div>
+        </div>
+
+        <div class="troll-panel" aria-label="Протокол клона Йору">
+          <span>протокол клона Йору</span>
+          <p>
+            Разрешено: троллить, делать вид что «это был не я», смеяться в
+            голос и внезапно менять тактику на «пойдём за вкусняшкой».
+          </p>
+        </div>
 
         <div class="calendar-card" aria-label="Выбор даты и времени">
           <div class="calendar-title">
-            <span>Выбери день, Викуля</span>
+            <span>Выбери день для миссии</span>
             <strong id="calendarMonth">Июнь</strong>
           </div>
 
@@ -66,7 +91,7 @@
         </div>
 
         <label class="wish-field" for="wishInput">
-          <span>Что бы тебе хотелось, Викуся?</span>
+          <span>Что берём в loadout?</span>
           <textarea
             id="wishInput"
             rows="3"
@@ -84,7 +109,7 @@
             target="_blank"
             rel="noreferrer"
           >
-            Да, конечно
+            Подтвердить миссию
           </a>
           <button class="button ghost no-button" type="button" id="noButton">
             Нет
